@@ -14,6 +14,8 @@ namespace pryJuegoSampo
     {
         //zona de decalracion global
         clsNave objNaveJugador;
+        clsNave objNaveEnemigo;
+        Random random = new Random();
         public Form1()
         {
             InitializeComponent();
@@ -22,12 +24,21 @@ namespace pryJuegoSampo
         private void Form1_Load(object sender, EventArgs e)
         {
             objNaveJugador = new clsNave();
-
             objNaveJugador.CrearJuagador();
-            objNaveJugador.imgNave.Location = new Point(200, 200);
+            objNaveJugador.imgNave.Location = new Point(200, 500);
             Controls.Add(objNaveJugador.imgNave);
 
-            //MessageBox.Show(objNaveJugador.nombre);
+            
+            objNaveEnemigo = new clsNave();
+            objNaveEnemigo.CrearEnemigo();
+            objNaveEnemigo.imgNaveEnemiga.Location = new Point(200, 100);   
+            Controls.Add(objNaveEnemigo.imgNaveEnemiga);
+            
+            int x = random.Next(this.Width -  objNaveEnemigo.imgNaveEnemiga.Width);
+            int y = random.Next(this.Height - objNaveEnemigo.imgNaveEnemiga.Height);
+            
+            objNaveEnemigo.imgNaveEnemiga.Location = new Point(x, y);
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -44,6 +55,20 @@ namespace pryJuegoSampo
                 objNaveJugador.imgNave.Location = new Point(
                     objNaveJugador.imgNave.Location.X - 5,
                     objNaveJugador.imgNave.Location.Y);
+            }
+
+            if (e.KeyCode == Keys.Up)
+            {
+                objNaveJugador.imgNave.Location = new Point(
+                    objNaveJugador.imgNave.Location.X,
+                    objNaveJugador.imgNave.Location.Y - 5);
+            }
+
+            if(e.KeyCode == Keys.Down)
+            {
+                objNaveJugador.imgNave.Location = new Point(
+                    objNaveJugador.imgNave.Location.X,
+                    objNaveJugador.imgNave.Location.Y + 5);
             }
         }
     }
