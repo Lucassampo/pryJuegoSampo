@@ -15,7 +15,8 @@ namespace pryJuegoSampo
         //zona de decalracion global
         clsNave objNaveJugador;
         clsNave objNaveEnemigo;
-        Random random = new Random();
+        clsNave objLaserP;
+        clsNave objLaser;
         public Form1()
         {
             InitializeComponent();
@@ -28,16 +29,28 @@ namespace pryJuegoSampo
             objNaveJugador.imgNave.Location = new Point(200, 500);
             Controls.Add(objNaveJugador.imgNave);
 
-            
             objNaveEnemigo = new clsNave();
-            objNaveEnemigo.CrearEnemigo();
-            objNaveEnemigo.imgNaveEnemiga.Location = new Point(200, 100);   
-            Controls.Add(objNaveEnemigo.imgNaveEnemiga);
+            int x = 23;
+            for (int i = 0; i < 7; i++)
+            {
+                objNaveEnemigo.CrearEnemigo();
+                objNaveEnemigo.imgNaveEnemiga.Location = new Point(x, 50);
+                Controls.Add(objNaveEnemigo.imgNaveEnemiga);
+                x += objNaveEnemigo.imgNaveEnemiga.Size.Width * 2;
+
+                objLaser = new clsNave();
+                objLaser.CrearLaserEnemiga();
+
+                objLaser.imgBalaEnemiga.Location = new Point(objNaveEnemigo.imgNaveEnemiga.Location.X + 12, objNaveEnemigo.imgNaveEnemiga.Location.Y + 20);
+                Controls.Add(objLaser.imgBalaEnemiga);
+            }
             
-            int x = random.Next(this.Width -  objNaveEnemigo.imgNaveEnemiga.Width);
-            int y = random.Next(this.Height - objNaveEnemigo.imgNaveEnemiga.Height);
-            
-            objNaveEnemigo.imgNaveEnemiga.Location = new Point(x, y);
+            objLaserP = new clsNave();
+            objLaserP.CrearLaserJugador();
+
+            objLaserP.imgBala.Location = new Point(objNaveJugador.imgNave.Location.X + 14, objNaveJugador.imgNave.Location.Y - objNaveJugador.imgNave.Size.Height);
+            Controls.Add(objLaserP.imgBala);
+
 
         }
 
@@ -45,31 +58,29 @@ namespace pryJuegoSampo
         {
             if(e.KeyCode == Keys.Right)
             {
-                objNaveJugador.imgNave.Location = new Point(
-                    objNaveJugador.imgNave.Location.X + 5, 
-                    objNaveJugador.imgNave.Location.Y);
+                objNaveJugador.imgNave.Location = new Point(objNaveJugador.imgNave.Location.X + 5, objNaveJugador.imgNave.Location.Y);
+                objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X + 5, objLaserP.imgBala.Location.Y);
             }
 
             if (e.KeyCode == Keys.Left)
             {
-                objNaveJugador.imgNave.Location = new Point(
-                    objNaveJugador.imgNave.Location.X - 5,
-                    objNaveJugador.imgNave.Location.Y);
+                objNaveJugador.imgNave.Location = new Point(objNaveJugador.imgNave.Location.X - 5,objNaveJugador.imgNave.Location.Y);
+                objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X - 5, objLaserP.imgBala.Location.Y);
             }
 
-            if (e.KeyCode == Keys.Up)
-            {
-                objNaveJugador.imgNave.Location = new Point(
-                    objNaveJugador.imgNave.Location.X,
-                    objNaveJugador.imgNave.Location.Y - 5);
-            }
+            //if (e.KeyCode == Keys.Up)
+            //{
+            //    objNaveJugador.imgNave.Location = new Point(
+            //        objNaveJugador.imgNave.Location.X,
+            //        objNaveJugador.imgNave.Location.Y - 5);
+            //}
 
-            if(e.KeyCode == Keys.Down)
-            {
-                objNaveJugador.imgNave.Location = new Point(
-                    objNaveJugador.imgNave.Location.X,
-                    objNaveJugador.imgNave.Location.Y + 5);
-            }
+            //if(e.KeyCode == Keys.Down)
+            //{
+            //    objNaveJugador.imgNave.Location = new Point(
+            //        objNaveJugador.imgNave.Location.X,
+            //        objNaveJugador.imgNave.Location.Y + 5);
+            //}
         }
     }
 }
