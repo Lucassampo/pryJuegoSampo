@@ -68,19 +68,16 @@ namespace pryJuegoSampo
                 objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X - 5, objLaserP.imgBala.Location.Y);
             }
 
-            //if (e.KeyCode == Keys.Up)
-            //{
-            //    objNaveJugador.imgNave.Location = new Point(
-            //        objNaveJugador.imgNave.Location.X,
-            //        objNaveJugador.imgNave.Location.Y - 5);
-            //}
-
-            //if(e.KeyCode == Keys.Down)
-            //{
-            //    objNaveJugador.imgNave.Location = new Point(
-            //        objNaveJugador.imgNave.Location.X,
-            //        objNaveJugador.imgNave.Location.Y + 5);
-            //}
+            if(e.KeyCode == Keys.Space)
+            {
+                objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X, objLaserP.imgBala.Location.Y);
+            }        
+            timer1.Enabled = true; 
         }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X, objLaserP.imgBala.Location.Y - 50);
+        }
+
     }
 }
