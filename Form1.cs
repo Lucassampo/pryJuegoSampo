@@ -44,13 +44,13 @@ namespace pryJuegoSampo
                 objLaser.imgBalaEnemiga.Location = new Point(objNaveEnemigo.imgNaveEnemiga.Location.X + 12, objNaveEnemigo.imgNaveEnemiga.Location.Y + 20);
                 Controls.Add(objLaser.imgBalaEnemiga);
             }
-            
+
             objLaserP = new clsNave();
             objLaserP.CrearLaserJugador();
 
             objLaserP.imgBala.Location = new Point(objNaveJugador.imgNave.Location.X + 14, objNaveJugador.imgNave.Location.Y - objNaveJugador.imgNave.Size.Height);
             Controls.Add(objLaserP.imgBala);
-
+            timer1.Start();
 
         }
 
@@ -67,16 +67,21 @@ namespace pryJuegoSampo
                 objNaveJugador.imgNave.Location = new Point(objNaveJugador.imgNave.Location.X - 5,objNaveJugador.imgNave.Location.Y);
                 objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X - 5, objLaserP.imgBala.Location.Y);
             }
-
-            if(e.KeyCode == Keys.Space)
+           
+            if (e.KeyCode == Keys.Space)
             {
                 objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X, objLaserP.imgBala.Location.Y);
+                timer1.Enabled = true; 
             }        
-            timer1.Enabled = true; 
+
+            
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
+            timer1.Interval = 10;
             objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X, objLaserP.imgBala.Location.Y - 50);
+            timer1.Enabled = false;
+            
         }
 
     }
