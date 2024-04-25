@@ -27,6 +27,7 @@ namespace pryJuegoSampo
             imgNave.SizeMode = PictureBoxSizeMode.StretchImage;
             imgNave.ImageLocation = "https://static.wikia.nocookie.net/xenofighters/images/c/c3/Profilepic834_14.gif/revision/latest/scale-to-width/360?cb=20110106152439";
             imgNave.BackColor = System.Drawing.Color.Transparent;
+           
         }
 
         public void CrearEnemigo()
@@ -52,12 +53,12 @@ namespace pryJuegoSampo
 
         public void CrearLaserJugador()
         {
-        
             imgBala = new PictureBox();
             imgBala.SizeMode = PictureBoxSizeMode.StretchImage;
             imgBala.ImageLocation = "https://donaldcarling.wordpress.com/wp-content/uploads/2016/03/mega-laser-1.png";
             imgBala.Size = new System.Drawing.Size(8, 100);
             imgBala.BackColor = System.Drawing.Color.Transparent;
+           
         }
     }
 }

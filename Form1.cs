@@ -17,6 +17,11 @@ namespace pryJuegoSampo
         clsNave objNaveEnemigo;
         clsNave objLaserP;
         clsNave objLaser;
+
+        List<clsNave> objList = new List<clsNave>();
+        List<clsNave> objEnemigo = new List<clsNave>();
+
+
         public Form1()
         {
             InitializeComponent();
@@ -38,19 +43,19 @@ namespace pryJuegoSampo
                 Controls.Add(objNaveEnemigo.imgNaveEnemiga);
                 x += objNaveEnemigo.imgNaveEnemiga.Size.Width * 2;
 
-                objLaser = new clsNave();
-                objLaser.CrearLaserEnemiga();
+                //objLaser = new clsNave();
+                //objLaser.CrearLaserEnemiga();
 
-                objLaser.imgBalaEnemiga.Location = new Point(objNaveEnemigo.imgNaveEnemiga.Location.X + 12, objNaveEnemigo.imgNaveEnemiga.Location.Y + 20);
-                Controls.Add(objLaser.imgBalaEnemiga);
+                //objLaser.imgBalaEnemiga.Location = new Point(objNaveEnemigo.imgNaveEnemiga.Location.X + 12, objNaveEnemigo.imgNaveEnemiga.Location.Y + 20);
+                //Controls.Add(objLaser.imgBalaEnemiga);
+
+                objEnemigo.Add(objNaveEnemigo);
+
             }
 
-            objLaserP = new clsNave();
-            objLaserP.CrearLaserJugador();
-
-            objLaserP.imgBala.Location = new Point(objNaveJugador.imgNave.Location.X + 14, objNaveJugador.imgNave.Location.Y - objNaveJugador.imgNave.Size.Height);
-            Controls.Add(objLaserP.imgBala);
+           
             timer1.Start();
+            timer1.Enabled = true;
 
         }
 
@@ -59,30 +64,46 @@ namespace pryJuegoSampo
             if(e.KeyCode == Keys.Right)
             {
                 objNaveJugador.imgNave.Location = new Point(objNaveJugador.imgNave.Location.X + 5, objNaveJugador.imgNave.Location.Y);
-                objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X + 5, objLaserP.imgBala.Location.Y);
+                /*objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X + 5, objLaserP.imgBala.Location.Y)*/;
             }
 
             if (e.KeyCode == Keys.Left)
             {
                 objNaveJugador.imgNave.Location = new Point(objNaveJugador.imgNave.Location.X - 5,objNaveJugador.imgNave.Location.Y);
-                objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X - 5, objLaserP.imgBala.Location.Y);
+                //objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X - 5, objLaserP.imgBala.Location.Y);
             }
            
             if (e.KeyCode == Keys.Space)
             {
-                objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X, objLaserP.imgBala.Location.Y);
-                timer1.Enabled = true; 
-            }        
+                objLaserP = new clsNave();
+                objLaserP.CrearLaserJugador();
 
+                objLaserP.imgBala.Location = new Point(objNaveJugador.imgNave.Location.X + 14, objNaveJugador.imgNave.Location.Y - objNaveJugador.imgNave.Size.Height);
+                Controls.Add(objLaserP.imgBala);
+                //objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X, objLaserP.imgBala.Location.Y);
+                 objList.Add(objLaserP);
+            }
             
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Interval = 10;
-            objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X, objLaserP.imgBala.Location.Y - 50);
-            timer1.Enabled = false;
-            
-        }
-
+            //Recorre uno por uno
+            foreach (clsNave bala in objList)
+            {
+                bala.imgBala.Location = new Point(bala.imgBala.Location.X, bala.imgBala.Location.Y - 10); 
+            }
+            foreach (clsNave bala in objList)
+            {
+                foreach (clsNave Enemigo in objEnemigo)
+                {
+                    if (bala.imgBala.Bounds.IntersectsWith(Enemigo.imgNaveEnemiga.Bounds))
+                    {
+                        Enemigo.imgNaveEnemiga.Dispose();
+                        bala.imgBala.Dispose();
+                    }
+                }
+            }
+         
+        }   
     }
 }
