@@ -12,7 +12,7 @@ namespace pryJuegoSampo
         //Caracteristicas
         public int vida;
         public string nombre;
-        int puntosDaño;
+        public int puntosDaño;
         public PictureBox imgNave;
         public PictureBox imgNaveEnemiga;
         public PictureBox imgBala;

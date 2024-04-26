@@ -17,6 +17,7 @@ namespace pryJuegoSampo
         clsNave objNaveEnemigo;
         clsNave objLaserP;
         clsNave objLaser;
+        public int Score = 0;
 
         List<clsNave> objList = new List<clsNave>();
         List<clsNave> objEnemigo = new List<clsNave>();
@@ -38,6 +39,7 @@ namespace pryJuegoSampo
             int x = 23;
             for (int i = 0; i < 7; i++)
             {
+                objNaveEnemigo=new clsNave();
                 objNaveEnemigo.CrearEnemigo();
                 objNaveEnemigo.imgNaveEnemiga.Location = new Point(x, 50);
                 Controls.Add(objNaveEnemigo.imgNaveEnemiga);
@@ -50,6 +52,7 @@ namespace pryJuegoSampo
                 //Controls.Add(objLaser.imgBalaEnemiga);
 
                 objEnemigo.Add(objNaveEnemigo);
+                objNaveEnemigo = null;
 
             }
 
@@ -64,13 +67,13 @@ namespace pryJuegoSampo
             if(e.KeyCode == Keys.Right)
             {
                 objNaveJugador.imgNave.Location = new Point(objNaveJugador.imgNave.Location.X + 5, objNaveJugador.imgNave.Location.Y);
-                /*objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X + 5, objLaserP.imgBala.Location.Y)*/;
+                
             }
 
             if (e.KeyCode == Keys.Left)
             {
                 objNaveJugador.imgNave.Location = new Point(objNaveJugador.imgNave.Location.X - 5,objNaveJugador.imgNave.Location.Y);
-                //objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X - 5, objLaserP.imgBala.Location.Y);
+                
             }
            
             if (e.KeyCode == Keys.Space)
@@ -80,7 +83,7 @@ namespace pryJuegoSampo
 
                 objLaserP.imgBala.Location = new Point(objNaveJugador.imgNave.Location.X + 14, objNaveJugador.imgNave.Location.Y - objNaveJugador.imgNave.Size.Height);
                 Controls.Add(objLaserP.imgBala);
-                //objLaserP.imgBala.Location = new Point(objLaserP.imgBala.Location.X, objLaserP.imgBala.Location.Y);
+            
                  objList.Add(objLaserP);
             }
             
@@ -90,20 +93,30 @@ namespace pryJuegoSampo
             //Recorre uno por uno
             foreach (clsNave bala in objList)
             {
-                bala.imgBala.Location = new Point(bala.imgBala.Location.X, bala.imgBala.Location.Y - 10); 
-            }
-            foreach (clsNave bala in objList)
-            {
+                bala.imgBala.Location = new Point(bala.imgBala.Location.X,
+                    bala.imgBala.Location.Y - 10);
+
                 foreach (clsNave Enemigo in objEnemigo)
                 {
                     if (bala.imgBala.Bounds.IntersectsWith(Enemigo.imgNaveEnemiga.Bounds))
                     {
                         Enemigo.imgNaveEnemiga.Dispose();
                         bala.imgBala.Dispose();
+
+                        Score = Score + 1;
+                        lblPuntos.Text = Score.ToString();
+                        
+                    }
+
+                    if(Score == 50)
+                    {
+                        PictureBox Boss = new PictureBox();
+                        Boss.BackColor = Color.White;
+
+                        Controls.Add(Boss);
                     }
                 }
             }
-         
         }   
     }
 }
