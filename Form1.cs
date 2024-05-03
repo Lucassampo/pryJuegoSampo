@@ -94,27 +94,36 @@ namespace pryJuegoSampo
             foreach (clsNave bala in objList)
             {
                 bala.imgBala.Location = new Point(bala.imgBala.Location.X,
-                    bala.imgBala.Location.Y - 10);
+                bala.imgBala.Location.Y - 10);
 
                 foreach (clsNave Enemigo in objEnemigo)
                 {
                     if (bala.imgBala.Bounds.IntersectsWith(Enemigo.imgNaveEnemiga.Bounds))
-                    {
-                        Enemigo.imgNaveEnemiga.Dispose();
-                        bala.imgBala.Dispose();
-
-                        Score = Score + 1;
+                    { 
+                        Score = Score + 25;
                         lblPuntos.Text = Score.ToString();
+                        Enemigo.imgNaveEnemiga.Dispose();
+                        objEnemigo.Remove(Enemigo);
+                        bala.imgBala.Dispose();
                         
+                        if (Score == 50)
+                        {
+                            PictureBox Boss = new PictureBox();
+                            Boss.BackColor = Color.White;
+
+                            Controls.Add(Boss);
+                        }
+                        
+                        break;
                     }
 
-                    if(Score == 50)
-                    {
-                        PictureBox Boss = new PictureBox();
-                        Boss.BackColor = Color.White;
+                    //if(Score == 50)
+                    //{
+                    //    PictureBox Boss = new PictureBox();
+                    //    Boss.BackColor = Color.White;
 
-                        Controls.Add(Boss);
-                    }
+                    //    Controls.Add(Boss);
+                    //}
                 }
             }
         }   
