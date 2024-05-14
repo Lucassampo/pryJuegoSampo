@@ -101,18 +101,19 @@ namespace pryJuegoSampo
                     if (bala.imgBala.Bounds.IntersectsWith(Enemigo.imgNaveEnemiga.Bounds))
                     { 
                         Score = Score + 25;
+                        Contador = Contador + 1;
                         lblPuntos.Text = Score.ToString();
                         Enemigo.imgNaveEnemiga.Dispose();
                         objEnemigo.Remove(Enemigo);
                         bala.imgBala.Dispose();
                         
-                        if (Score == 50)
-                        {
-                            PictureBox Boss = new PictureBox();
-                            Boss.BackColor = Color.White;
+                        //if (Score == 50)
+                        //{
+                        //    PictureBox Boss = new PictureBox();
+                        //    Boss.BackColor = Color.White;
 
-                            Controls.Add(Boss);
-                        }
+                        //    Controls.Add(Boss);
+                        //}
                         
                         break;
                     }
@@ -126,6 +127,31 @@ namespace pryJuegoSampo
                     //}
                 }
             }
-        }   
+        }
+
+        int Contador, PosX, PosY;
+        Random randomx = new Random();
+        Random randomY = new Random();
+
+        private void timerEnemigos_Tick(object sender, EventArgs e)
+        {
+            
+            if (Contador > 3)
+            {
+                int x = 23;
+                for (int i = 0; i < 5; i++) 
+                { 
+                    PosX = randomx.Next(0, 10);
+                    PosY = randomY.Next(30, 40);
+                    objNaveEnemigo = new clsNave();
+                    objNaveEnemigo.CrearEnemigo();
+                    objEnemigo.Add(objNaveEnemigo);
+                    objNaveEnemigo.imgNaveEnemiga.Location = new Point(x, PosY);
+                    Controls.Add(objNaveEnemigo.imgNaveEnemiga);
+                    x += objNaveEnemigo.imgNaveEnemiga.Size.Width * 2;
+                }
+                Contador++;
+            }
+        }
     }
 }

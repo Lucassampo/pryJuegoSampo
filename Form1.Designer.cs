@@ -33,6 +33,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblScore = new System.Windows.Forms.Label();
             this.lblPuntos = new System.Windows.Forms.Label();
+            this.timerEnemigos = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timer1
@@ -45,9 +46,10 @@
             // 
             this.lblScore.AutoSize = true;
             this.lblScore.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblScore.Location = new System.Drawing.Point(12, 9);
+            this.lblScore.Location = new System.Drawing.Point(16, 11);
+            this.lblScore.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(44, 13);
+            this.lblScore.Size = new System.Drawing.Size(53, 16);
             this.lblScore.TabIndex = 0;
             this.lblScore.Text = "Score =";
             // 
@@ -55,23 +57,29 @@
             // 
             this.lblPuntos.AutoSize = true;
             this.lblPuntos.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblPuntos.Location = new System.Drawing.Point(62, 9);
+            this.lblPuntos.Location = new System.Drawing.Point(83, 11);
+            this.lblPuntos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPuntos.Name = "lblPuntos";
-            this.lblPuntos.Size = new System.Drawing.Size(13, 13);
+            this.lblPuntos.Size = new System.Drawing.Size(14, 16);
             this.lblPuntos.TabIndex = 1;
             this.lblPuntos.Text = "0";
             // 
+            // timerEnemigos
+            // 
+            this.timerEnemigos.Enabled = true;
+            this.timerEnemigos.Tick += new System.EventHandler(this.timerEnemigos_Tick);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(525, 569);
+            this.ClientSize = new System.Drawing.Size(700, 700);
             this.Controls.Add(this.lblPuntos);
             this.Controls.Add(this.lblScore);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -87,6 +95,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Label lblPuntos;
+        private System.Windows.Forms.Timer timerEnemigos;
     }
 }
 
