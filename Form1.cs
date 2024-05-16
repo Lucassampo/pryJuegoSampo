@@ -18,7 +18,7 @@ namespace pryJuegoSampo
         clsNave objLaserP;
         clsNave objLaser;
         public int Score = 0;
-        public int Muertes = 0;
+        
         
 
         List<clsNave> objList = new List<clsNave>();
@@ -105,12 +105,12 @@ namespace pryJuegoSampo
 
                         Score = Score + 25;
                         lblPuntos.Text = Score.ToString();
-                        Muertes = Muertes + 1;
-                        if (Muertes == 5)
-                        {
+                        //Muertes = Muertes + 1;
+                        //if (Muertes == 5)
+                        //{
                             
-                            Muertes = 0;
-                        }
+                        //    Muertes = 0;
+                        //}
 
                         break;
                     }
@@ -127,10 +127,8 @@ namespace pryJuegoSampo
             foreach(clsNave Enemigos in objEnemigo)
             {
                 Random random = new Random();
-                int direction = random.Next(2) == 0 ? -2 : 2;
-
-
-                Enemigos.imgNaveEnemiga.Location = new Point(Enemigos.imgNaveEnemiga.Location.X + direction, Enemigos.imgNaveEnemiga.Location.Y);
+                int direccion = random.Next(2) == 0 ? -2 : 2;
+                Enemigos.imgNaveEnemiga.Location = new Point(Enemigos.imgNaveEnemiga.Location.X + direccion, Enemigos.imgNaveEnemiga.Location.Y);
             }
         }
 
@@ -148,7 +146,6 @@ namespace pryJuegoSampo
                     objEnemigo.Add(objNaveEnemigo);
                     objNaveEnemigo.imgNaveEnemiga.Location = new Point(PosX, PosY);
                     Controls.Add(objNaveEnemigo.imgNaveEnemiga);
-                    //PosX += objNaveEnemigo.imgNaveEnemiga.Size.Width * 2;
                 }
             }
         }
