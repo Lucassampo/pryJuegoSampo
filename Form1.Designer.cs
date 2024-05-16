@@ -34,6 +34,7 @@
             this.lblScore = new System.Windows.Forms.Label();
             this.lblPuntos = new System.Windows.Forms.Label();
             this.timerEnemigos = new System.Windows.Forms.Timer(this.components);
+            this.timerMovimientoNaves = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timer1
@@ -69,6 +70,11 @@
             this.timerEnemigos.Enabled = true;
             this.timerEnemigos.Tick += new System.EventHandler(this.timerEnemigos_Tick);
             // 
+            // timerMovimientoNaves
+            // 
+            this.timerMovimientoNaves.Enabled = true;
+            this.timerMovimientoNaves.Tick += new System.EventHandler(this.timerMovimientoNaves_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -96,6 +102,7 @@
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Label lblPuntos;
         private System.Windows.Forms.Timer timerEnemigos;
+        private System.Windows.Forms.Timer timerMovimientoNaves;
     }
 }
 

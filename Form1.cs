@@ -18,6 +18,8 @@ namespace pryJuegoSampo
         clsNave objLaserP;
         clsNave objLaser;
         public int Score = 0;
+        public int Muertes = 0;
+        
 
         List<clsNave> objList = new List<clsNave>();
         List<clsNave> objEnemigo = new List<clsNave>();
@@ -36,29 +38,26 @@ namespace pryJuegoSampo
             Controls.Add(objNaveJugador.imgNave);
 
             objNaveEnemigo = new clsNave();
-            int x = 23;
-            for (int i = 0; i < 7; i++)
+            int x = 10;
+            for (int i = 0; i < 5; i++)
             {
                 objNaveEnemigo=new clsNave();
                 objNaveEnemigo.CrearEnemigo();
                 objNaveEnemigo.imgNaveEnemiga.Location = new Point(x, 50);
                 Controls.Add(objNaveEnemigo.imgNaveEnemiga);
-                x += objNaveEnemigo.imgNaveEnemiga.Size.Width * 2;
+                x += (objNaveEnemigo.imgNaveEnemiga.Size.Width * 2) - 10;
 
-                //objLaser = new clsNave();
-                //objLaser.CrearLaserEnemiga();
-
-                //objLaser.imgBalaEnemiga.Location = new Point(objNaveEnemigo.imgNaveEnemiga.Location.X + 12, objNaveEnemigo.imgNaveEnemiga.Location.Y + 20);
-                //Controls.Add(objLaser.imgBalaEnemiga);
-
-                objEnemigo.Add(objNaveEnemigo);
-                objNaveEnemigo = null;
+               objEnemigo.Add(objNaveEnemigo);
+               objNaveEnemigo = null;
 
             }
 
-           
             timer1.Start();
             timer1.Enabled = true;
+            timerEnemigos.Start();
+            timerEnemigos.Enabled = true; 
+            timerMovimientoNaves.Start();
+            timerEnemigos.Enabled = true; 
 
         }
 
@@ -95,62 +94,62 @@ namespace pryJuegoSampo
             {
                 bala.imgBala.Location = new Point(bala.imgBala.Location.X,
                 bala.imgBala.Location.Y - 10);
-
                 foreach (clsNave Enemigo in objEnemigo)
                 {
                     if (bala.imgBala.Bounds.IntersectsWith(Enemigo.imgNaveEnemiga.Bounds))
-                    { 
-                        Score = Score + 25;
-                        Contador = Contador + 1;
-                        lblPuntos.Text = Score.ToString();
+                    {
                         Enemigo.imgNaveEnemiga.Dispose();
-                        objEnemigo.Remove(Enemigo);
                         bala.imgBala.Dispose();
+                        objEnemigo.Remove(Enemigo);
                         
-                        //if (Score == 50)
-                        //{
-                        //    PictureBox Boss = new PictureBox();
-                        //    Boss.BackColor = Color.White;
 
-                        //    Controls.Add(Boss);
-                        //}
-                        
+                        Score = Score + 25;
+                        lblPuntos.Text = Score.ToString();
+                        Muertes = Muertes + 1;
+                        if (Muertes == 5)
+                        {
+                            
+                            Muertes = 0;
+                        }
+
                         break;
                     }
-
-                    //if(Score == 50)
-                    //{
-                    //    PictureBox Boss = new PictureBox();
-                    //    Boss.BackColor = Color.White;
-
-                    //    Controls.Add(Boss);
-                    //}
                 }
             }
         }
 
-        int Contador, PosX, PosY;
+        int PosX, PosY;
         Random randomx = new Random();
         Random randomY = new Random();
 
+        private void timerMovimientoNaves_Tick(object sender, EventArgs e)
+        {
+            foreach(clsNave Enemigos in objEnemigo)
+            {
+                Random random = new Random();
+                int direction = random.Next(2) == 0 ? -2 : 2;
+
+
+                Enemigos.imgNaveEnemiga.Location = new Point(Enemigos.imgNaveEnemiga.Location.X + direction, Enemigos.imgNaveEnemiga.Location.Y);
+            }
+        }
+
         private void timerEnemigos_Tick(object sender, EventArgs e)
         {
-            
-            if (Contador > 3)
+            if (objEnemigo.Count == 0)
             {
-                int x = 23;
-                for (int i = 0; i < 5; i++) 
-                { 
-                    PosX = randomx.Next(0, 10);
+                int x = 10;
+                for (int i = 0; i < 5; i++)
+                {
+                    PosX = randomx.Next(0, 650);
                     PosY = randomY.Next(30, 40);
                     objNaveEnemigo = new clsNave();
                     objNaveEnemigo.CrearEnemigo();
                     objEnemigo.Add(objNaveEnemigo);
-                    objNaveEnemigo.imgNaveEnemiga.Location = new Point(x, PosY);
+                    objNaveEnemigo.imgNaveEnemiga.Location = new Point(PosX, PosY);
                     Controls.Add(objNaveEnemigo.imgNaveEnemiga);
-                    x += objNaveEnemigo.imgNaveEnemiga.Size.Width * 2;
+                    //PosX += objNaveEnemigo.imgNaveEnemiga.Size.Width * 2;
                 }
-                Contador++;
             }
         }
     }
